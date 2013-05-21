@@ -1361,8 +1361,8 @@ function calcPosHorizontal(){
 	
 				}else{
 				
-				tempSprites[c6].x = placeX+padding;
-				tempSprites[c6].y = placeY+padding;
+				tempSprites[c6].x = placeX;
+				tempSprites[c6].y = placeY;
 				tempSprites[c6].outOfBounds = false;
 				images.push(tempSprites[c6]);
 				}
@@ -1562,8 +1562,8 @@ function calcPosVert(){
 	
 				}else{
 				
-				tempSprites[c6].x = placeX+padding;
-				tempSprites[c6].y = placeY+padding;
+				tempSprites[c6].x = placeX;
+				tempSprites[c6].y = placeY;
 				tempSprites[c6].outOfBounds = false;
 				images.push(tempSprites[c6]);
 				}
@@ -1730,8 +1730,8 @@ function calcPosBoxLimit(){
 							
 							for(var c8 = 0;c8<tempSprites.length;c8++){
 								if(c8==c6){continue;}
-								var thisW2 = tempSprites[c8].width+padding+padding;
-								var thisH2 = tempSprites[c8].height+padding+padding;
+								var thisW2 = tempSprites[c8].width+padding;
+								var thisH2 = tempSprites[c8].height+padding;
 								//console.log(padding);
 								var tempX2 = tempSprites[c8].x-padding;
 								var tempY22 = tempSprites[c8].y-padding;
