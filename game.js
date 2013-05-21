@@ -1294,8 +1294,8 @@ function calcPosHorizontal(){
 			//compare this with all the prev
 			//if it fits place it there
 			
-			var thisW = tempSprites[c6].width+padding;
-			var thisH = tempSprites[c6].height+padding;
+			var thisW = tempSprites[c6].width+padding+padding;
+			var thisH = tempSprites[c6].height+padding+padding;
 			var tempX = 0;
 			var tempY = 0;
 			
@@ -1326,8 +1326,8 @@ function calcPosHorizontal(){
 							
 							for(var c8 = 0;c8<tempSprites.length;c8++){
 								if(c8==c6){continue;}
-								var thisW2 = tempSprites[c8].width+padding;
-								var thisH2 = tempSprites[c8].height+padding;
+								var thisW2 = tempSprites[c8].width+padding+padding;
+								var thisH2 = tempSprites[c8].height+padding+padding;
 								//console.log(padding);
 								var tempX2 = tempSprites[c8].x-padding;
 								var tempY22 = tempSprites[c8].y-padding;
@@ -1493,8 +1493,8 @@ function calcPosVert(){
 			//compare this with all the prev
 			//if it fits place it there
 			
-			var thisW = tempSprites[c6].width+padding;
-			var thisH = tempSprites[c6].height+padding;
+			var thisW = tempSprites[c6].width+padding+padding;
+			var thisH = tempSprites[c6].height+padding+padding;
 			var tempX = 0;
 			var tempY = 0;
 			
@@ -1527,8 +1527,8 @@ function calcPosVert(){
 							
 							for(var c8 = 0;c8<tempSprites.length;c8++){
 								if(c8==c6){continue;}
-								var thisW2 = tempSprites[c8].width+padding;
-								var thisH2 = tempSprites[c8].height+padding;
+								var thisW2 = tempSprites[c8].width+padding+padding;
+								var thisH2 = tempSprites[c8].height+padding+padding;
 								//console.log(padding);
 								var tempX2 = tempSprites[c8].x-padding;
 								var tempY22 = tempSprites[c8].y-padding;
