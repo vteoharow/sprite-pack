@@ -51,9 +51,9 @@ document.getElementById('DivWithScroll').addEventListener('click', selectSprite,
 
 function updateFileName(){
 
-	document.getElementById('standardTextLinkButton8').download = document.getElementById('standardTextLinkBox8').value+".json";
+	document.getElementById('standardTextLinkButton8').download = document.getElementById('standardTextLinkBox8').value+".txt";
 	
-	document.getElementById('standardTextLinkBox8').placeholder = document.getElementById('standardTextLinkBox8').value+".json";
+	document.getElementById('standardTextLinkBox8').placeholder = document.getElementById('standardTextLinkBox8').value+".txt";
 	
 	document.getElementById('standardTextLinkBox8').value = "";
 	
@@ -226,7 +226,7 @@ function loadFile(event){
 		
 	};
 	
-	if(selectedFile.name.split(".")[1]=="json"){
+	if(selectedFile.name.split(".")[1]=="txt"){
 		r.readAsText(selectedFile);
 	}
 }
