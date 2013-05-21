@@ -655,6 +655,32 @@ a[id^="standardTextLinkButton"]{
 	
 }
 
+
+button[id^="standardTextLinkButton11"]{
+	font-family:"Times New Roman",Georgia,Serif;
+	font-size:13pt;
+	text-decoration: none;
+	
+	border-left: 1px solid #AAA;
+	border-top: 1px solid #AAA;
+	border-bottom: 1px solid #AAA;
+	border-right: 1px solid #AAA;
+	border-radius: 6px 6px 6px 6px;
+	background-color: rgb(249, 255, 110);
+	text-align: center;
+	color: #40637C;
+	resize: none;
+	cursor:pointer;
+	margin:6px 6px 6px 6px;
+	padding:1px 1px 3px 1px;
+	overflow:hidden; 
+	box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+	position:relative;
+	z-index: 2;
+	
+	
+}
+
 textarea[id^="standardTextUBox"]{
 	border: 1px solid #AAA;
 	border-radius: 0px 8px 8px 0px;

@@ -31,6 +31,7 @@ var cellX = 32;
 var cellY = 32;
 var spriteScale = "scale none";
 var spritePos = "centered";
+var warned = false;
 
 var bgSaveX = 552;
 var bgSaveY = 400;
@@ -86,9 +87,11 @@ function updateJSONName(){
 }
 
 
+
 function openLoad(){
 
 	document.getElementById('load').style.display="none";
+	document.getElementById('standardTextLinkButton11').style.display="none";
 	document.getElementById('loadFile').style.display="inline";
 	document.getElementById('closeLoad').style.display="inline";
 
@@ -97,9 +100,131 @@ function openLoad(){
 function closeLoad(){
 
 	document.getElementById('load').style.display="inline";
+	document.getElementById('standardTextLinkButton11').style.display="inline";
 	document.getElementById('loadFile').style.display="none";
 	document.getElementById('closeLoad').style.display="none";
 
+}
+
+
+function loadExample(){
+	
+	if(!warned){
+	
+	document.getElementById('warning').innerHTML=" WARNING! </br> Opening the Example project will overwrite all of your current data! ";
+	document.getElementById('warning').style.display = "block";
+	warned = true;
+	return;}
+	
+	var json = JSON.parse(example);
+	//console.log(json);
+	
+	
+	var selectedFolder = "dropbox" + 1;	
+	images = new Array();	
+	folders = new Array();
+	
+	var saveArray = json.sf_file_2013;
+		//console.log(json);
+		
+		
+		num = 0;
+		maxId = 0;
+		maxLevel = 0;
+		maxNum = 0;
+		folderId = 1;
+		selectedFolder = "dropbox1";
+		
+		
+		for(i = 1;i<saveArray.length;i++){
+			var type = saveArray[i].type;
+			//console.log(type);
+			
+			if(type == "folder"){
+				var name =  saveArray[i].name;
+				var id =  parseInt(saveArray[i].id);
+				var imagesString =  saveArray[i].images.split(",");
+				var imagesF = new Array();
+				for(var i2 = 0;i2<imagesString.length;i2++){
+					imagesF.push(parseInt(imagesString[i2]));
+				
+				}
+				
+				
+				if(imagesF == "NaN"){imagesF = new Array();}
+				//console.log("array " + imagesF);
+				
+				
+				var subfolderId =  parseInt(saveArray[i].subfolderId);
+				var parent =  parseInt(saveArray[i].parentId);
+				var parentLevel =  parseInt(saveArray[i].level);
+				//console.log(id);
+				if (id>maxId){maxId = id;}
+				
+				
+				var folder = new Folder(name, parent, parentLevel);
+				folder.id = id;
+				folder.images = imagesF;
+				folder.subfolderId = subfolderId;
+				
+				folders.push(folder);
+			
+			}
+			if(type == "image"){
+				var source = new Image();
+				source.src=saveArray[i].source;
+				
+				var name = saveArray[i].name;
+				var num2 = parseInt(saveArray[i].id);
+				//console.log(num2);
+				if (num2>maxNum){maxNum = num2;}
+				images.push(new SpriteImage(source, name, num2));
+			
+			}
+		}
+		
+		//console.log(maxId);
+		
+		for(var c = 1;c<maxId;c++){
+		
+			var hasIt = false;
+			for(var c2 = 0;c2<folders.length;c2++){
+				if(folders[c2].id == c){hasIt = true;selectedFolder = "dropbox" + c;}
+			
+			}
+		
+			if(!hasIt){
+					var folder = new Folder("deleted", 0, 2);
+					folder.id = c;
+					folder.deleted = true;	
+					folders.push(folder);
+						
+					//console.log("un " + c);
+				}
+			
+		
+		
+		}
+		
+		
+		folderId = maxId+1;
+		num = maxNum+1;
+		
+		//console.log(images);
+		buildFolders();
+		calcPos();
+		displayDrop(selectedFolder, false);
+		buildFolders();
+		buildData();
+		buildDataPlain();
+		colorFullFolders();
+		
+		loop();
+		
+		document.getElementById('load').style.display="inline";
+		document.getElementById('loadFile').style.display="none";
+		document.getElementById('closeLoad').style.display="none";
+		
 }
 
 function loadFile(event){
@@ -494,6 +619,7 @@ function showExport(){
 	}
 
 }
+
 
 function onFileSelected(event) {
   
