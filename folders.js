@@ -99,7 +99,7 @@ function buildFolders(){
 		document.getElementById(parentId).innerHTML=imageHTML+document.getElementById(parentId).innerHTML;
 		
 		
-		document.getElementById(parentId).innerHTML="<div id=\"dropbox"+id+"\"><span id=\"droplabel"+id+"\">Drop files here...</span></div>"+document.getElementById(parentId).innerHTML;
+		document.getElementById(parentId).innerHTML="<div id=\"dropbox"+id+"\"><span id=\"droplabel"+id+"\">Drop images here...</span></div>"+document.getElementById(parentId).innerHTML;
 		
 		document.getElementById(parentId).innerHTML=
 		
