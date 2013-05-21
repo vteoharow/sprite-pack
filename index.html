@@ -1,74 +1,225 @@
 <!DOCTYPE html>
-<html>
+<Created by V Teoharov. 5/21/2013 
+https://github.com/vteoharow>
+<html lang = "en">
+<head>
+	<meta charset="utf-8">
+	<title>SpritePacker</title>
+	<link rel="stylesheet" href="game.css"></link>
+	<script src="http://www.google.com/jsapi?key=ABQIAAAADYbHHQrNWPElNtE4hn2g1hQhn5tTlmnhbGVHENfXgw8ik0kvARSWpfuAdtdt1KqinQpUokxB7SpcsQ"
+			type="text/javascript"></script>
+	<script type="text/javascript">
+		google.load("jquery", "1");
+		google.load("jqueryui", "1");
+	</script>
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Sprite-pack : " />
+</head>
+<body>		
+			
+			
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+			
+			<div id="banner" style="display:none"><p>This is the banner</p></div>
+			
+			
+			<div id="menuBar">
+			
+				<div id="saveFileContainer1">
+					<p><a id = "standardTextLinkButton8" href="data:text/txt;charset=utf-8;base64,Zm9vIGJhcg==" download="project.json"> Save </a></p><p>
+					<textarea id ="standardTextLinkBox8" onchange="updateFileName()" placeholder="project.json" rows="1" cols = "18"></textarea></p>
+				</div>
+			
+			<button id="load" onclick="openLoad()"> Load </button>
+			<button id="closeLoad" onclick="closeLoad()" style="display:none"> Cancel </button>
+			<input type="file" id="loadFile" onchange="loadFile(event)" style="display:none">
+			<button id="back"> Undo </button>
+			
+				<div id="saveFileContainer2">
+					<p><a id = "standardTextLinkButton9" href="data:image/png;charset=utf-8;base64,Zm9vIGJhcg==" download="spritesheet.png"> Export Image </a></p><p>
+					<textarea id ="standardTextLinkBox9" onchange="updateImageName()" placeholder="spritesheet.png" rows="1" cols = "18"></textarea></p>
+				</div>
+			
+				<div id="saveFileContainer3">
+					<p><a id = "standardTextLinkButton10" href="data:text/txt;charset=utf-8;base64,Zm9vIGJhcg==" download="spritesheet.json"> Export JSON </a></p><p>
+					<textarea id ="standardTextLinkBox10" onchange="updateJSONName()" placeholder="spritesheet.json" rows="1" cols = "18"></textarea></p>
+				</div>
+			</div>
+			
+			
+				
+			
+			
+			
+			
+			
+	<div id = "main">
+			
+		<div id = 'lSide'>
+			
+			<input type="file" id="add" onchange="onFileSelected(event)" disabled="disabled" style="display:none">
+			
+			
+			
+			<div id ="warning" onclick="hideMessage('warning')" style="display:none">
+			<textarea id="warningText" readonly = "true" rows = "3" cols ="40">Some files omitted because they already exist in this folder.</textarea>
+			</div>
+			
+			<div id = "fileSystem">
+			
+				<div id="addMainFolder">
+				<textarea id="zeroPlus" readonly="true\" onclick="displayTextBox('textBox0','confirm0')" rows = "1" cols ="2">+</textarea>
+				
+				<textarea id="zeroText" rows = "1" cols ="11" placeholder="folder name"></textarea>
+			
+				<textarea id="zeroConfirm" onclick="addFolder('zeroText',0,0)" rows = "1" cols ="7" readonly="true">Confirm</textarea>
+				
+				</div>
+				
+				<div id ="innerfolder0">
+				
+				
+				</div>
+			</div>
+			
+		</div>
+		
+		<div id = 'DivWithScroll'>
+			<div id = 'DivToScroll'>
+				
+				<canvas id="canvasBg" width="552" height="400" ></canvas>
+				
+				<div style="display:none">
+				<canvas id="canvasOut" width="552" height="400"></canvas>
+				</div>
+			</div>
+			
+		</div>
+		<div id = "rSide">
+		
+			<div id="exportOptions">
+			
+				
+					
+					
+					<div id ="optionDiv2">
+						<textarea onclick="setFill()" rows="1" cols="14" id="standardTextButton"> Fill Padding </textarea><textarea id="padding" onchange="changePadding()" rows = "1" cols = "3" placeholder="3"></textarea>
+						<input type="color" placeholder="#1F1F1F"id="fillColor" onchange="changeFillColor()"></input>
+					</div>
+					
+					<div id ="optionDiv3">
+					
+						<textarea onclick="switchVertical()" id="standardTextButton2" rows = "1" cols = "14">Arrange</textarea>
+						<textarea id="arrangeText" readonly="true" rows = "1" cols = "10">horizontal</textarea>
+						
+					</div>
+					
+					<div id ="optionDiv4">
+						
+						<textarea onclick="switchBoxLimit()" rows="1" cols ="14" id="standardTextButton3">Limit To Box</textarea>
+						
+						 <textarea id="boxWidth" onchange="changeBoxWidth()" rows = "1" cols = "3" placeholder="256"></textarea> 
+						
+						 <textarea id="boxHeight" onchange="changeBoxHeight()" rows = "1" cols = "3" placeholder="512"></textarea> 
+						
+					</div>
+					
+					<div id ="optionMultiDiv1">
+							
+						<div id = "optionSubDiv1">
+							
+							<textarea onclick="switchToGrid()" rows="1" cols ="14" id="standardTextButton4">Snap to Grid</textarea>
+							
+							<textarea id="standardTextBox1" rows = "1" cols = "3" readonly="true">off</textarea> 
+							
+						</div>
+							
+						
+						<div id = "optionSubDiv2">
+							<textarea rows="1" cols ="14" id="standardTextButton5">Grid Size</textarea>
+							
+							<textarea onchange="changeGridX()" id="standardTextBox2" rows = "1" cols = "3" placeholder="10"></textarea> 
+							<textarea onchange="changeGridY()" id="standardTextUBox3" rows = "1" cols = "3" placeholder="10"></textarea> 
+							
+						</div>
+							
+						
+						<div id = "optionSubDiv3">
+							<textarea rows="1" cols ="14" id="standardTextButton5">Cell Size</textarea>
+							
+							<textarea onchange="changeCellX()" id="standardTextBox4" rows = "1" cols = "3" placeholder="32"></textarea> 
+							
+							
+						</div>
+							
+						
+						<div id = "optionSubDiv4">
+							<textarea rows="1" onclick= "changeSpriteScale()" cols ="14" id="standardTextButton6">Sprite Scale</textarea>
+							
+							<textarea readonly ="true" id="standardTextBox6" rows = "1" cols = "10" >scale none</textarea> 
+						
+						</div>
+							
+						<div id = "optionSubDiv5">
+							<textarea rows="1" onclick= "changeSpritePos()" cols ="14" id="standardTextButton7">Sprite Pos</textarea>
+							
+							<textarea readonly ="true" id="standardTextBox7" rows = "1" cols = "14" >centered</textarea> 
+						</div>
+					</div>
+				
+				
+			</div>
+		
+		</div>
+		
+		
+			
+	</div>
+	
+	
+	
+	
+	<div id="exportDIV">
+	
+		<div id="toolbar">
+		<button id = "interactive" onclick="switchInteractive()"> Plain Text </button>
+		<button id = "exp" onclick="outImg()"> View Image </button>
+		</div>
+		
+		<div id ="imageView">
+		
+		</div>	
+		
+		<div id="outputView">
+		
+		<div id="JSONview">
+			<div id="dataMain">
+				<div id="data0">
+				</div>
+			</div>
+			<div id="dataPlain">
+				<div id="plain0">
+				</div>
+			</div>
+		
+		</div>
+		
+		</div>
+	</div>
+	
+	
 
-    <title>Sprite-pack</title>
-  </head>
+	<center>
+	
+	<p>Code by V. Teoharov 5/21/2013</p>
+	
+	</center>
 
-  <body>
+	
+	<script language="JavaScript" type="text/javascript" src="folders.js"></script>
+	<script language="JavaScript" type="text/javascript" src="game.js"></script>
+	<script language="JavaScript" type="text/javascript" src="drop.js"></script>
+	<script language="JavaScript" type="text/javascript" src="jsonview.js"></script>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/vteoharow/sprite-pack">View on GitHub</a>
-
-          <h1 id="project_title">Sprite-pack</h1>
-          <h2 id="project_tagline"></h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/vteoharow/sprite-pack/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/vteoharow/sprite-pack/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>Welcome to GitHub Pages.</h3>
-
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Sprite-pack maintained by <a href="https://github.com/vteoharow">vteoharow</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
-  </body>
-</html>
+	
+</body>
+</html>	
